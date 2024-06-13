@@ -16,6 +16,7 @@ import food1 from "/Assets/mile2-aseets/pictures/food-1.png";
 import food2 from "/Assets/mile2-aseets/pictures/food-2.png";
 import food3 from "/Assets/mile2-aseets/pictures/food-3.png";
 import { CardBody, CardTitle, CardSubtitle, Card } from "reactstrap";
+import MenuItem from "./MenuItem";
 
 export default function Home() {
   return (
@@ -184,6 +185,7 @@ export default function Home() {
             </CardBody>
           </Card>
         </div>
+        <MenuItem />
       </div>
 
       <Footer />

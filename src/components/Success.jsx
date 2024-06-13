@@ -38,7 +38,7 @@ export default function Success({ currentOrder }) {
         <p>Ek Malzemeler: {formatEkMalzemeler(currentOrder.ekMalzeme)}</p>
       </div>
 
-      <div className="mt-[90px] border-1 p-10 rounded-2  text-customBej px-20  bg-customRed">
+      <div className="mt-[90px] border-1 p-10 rounded-2  text-customBej px-20  bg-customRed mb-[100px]">
         <h4 className="mb-4 text-xl">Sipariş Toplamı</h4>
         <p className="mb-2">Seçimler: {currentOrder.totalMalzemePrice}₺</p>
         <p className="toplam-success">Toplam: {currentOrder.toplamUcret}₺</p>
