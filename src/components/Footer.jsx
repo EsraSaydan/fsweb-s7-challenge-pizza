@@ -13,8 +13,8 @@ import { PiTwitterLogoFill } from "react-icons/pi";
 
 export default function () {
   return (
-    <footer className="bg-black text-customBej sm:items-center lg:px-[80px]">
-      <div className="sm:flex sm:justify-between sm:items-center sm:px-8 pl-4  py-7">
+    <footer className="bg-black text-customBej sm:items-center px-[10px] lg:px-[80px]">
+      <div className="sm:flex sm:justify-between sm:items-center sm:px-8 pl-4 py-7">
         <section className=" flex">
           <section className="ml-20  ">
             <img className="w-35 lg:w-45" src={footerlogo} alt="Footer" />
@@ -40,8 +40,8 @@ export default function () {
           </section>
         </section>
 
-        <section className="lg:mr-[200px] sm:flex sm:justify-between sm:items-center ">
-          <div className="mt-[60px] lg:text-[13px] ml-7 ">
+        <section className="lg:mr-[200px] sm:flex sm:justify-between sm:items-center  ">
+          <div className="mt-[60px] lg:text-[13px] ml-3 md:ml-7 mb-[60px]  ">
             <h5 className="mb-[40px] font-semibold mt-[45px]">Hot Menu</h5>
 
             <p className=" text-customBej mb-1">Terminal Pizza</p>
@@ -53,10 +53,10 @@ export default function () {
           </div>
         </section>
 
-        <section className="mb-8 sm:ml-20">
-          <div className="text-[10px] lg:text-[15px] lg:mr-[30px] lg:mt-20">
-            <p className="mb-9">Instagram</p>
-            <div className="grid grid-cols-3 gap-2 lg:w-[200px]">
+        <section className="md:mb-8 sm:ml-20  ">
+          <div className="text-[15px] lg:text-[15px] lg:mr-[30px] lg:mt-20 ">
+            <p className="mb-[40px] font-semibold mt-[45px] ">Instagram</p>
+            <div className="grid grid-cols-3  md:gap-2 lg:w-[200px]">
               <img src={Instagram1} alt="Instagram-1" />
               <img src={Instagram2} alt="Instagram-2" />
               <img src={Instagram3} alt="Instagram-3" />

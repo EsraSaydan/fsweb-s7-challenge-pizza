@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import banner from "/Assets/mile2-aseets/pictures/form-banner.png";
-import inform from "./Inform";
 
 import {
   Card,
   CardBody,
-  CardSubtitle,
-  CardTitle,
   FormGroup,
   Input,
   Label,
@@ -16,7 +12,6 @@ import {
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
 import Inform from "./Inform";
 
 const SiparisOlustur = ({ setSiparis }) => {
@@ -126,51 +121,57 @@ const SiparisOlustur = ({ setSiparis }) => {
                 </Label>
                 <FormGroup check>
                   <Input
-                    name="radio1"
+                    name="radio"
                     type="radio"
                     value="Küçük"
                     checked={boyutSec === "Küçük"}
                     onChange={handleSizeChange}
+                    className="appearance-none w-4 h-4 border border-gray-300 rounded-full checked:bg-customYellow checked:border-transparent focus:outline-none"
+                    data-cy="radio3-input"
                   />
-                  <Label className="text-[12px]">Küçük</Label>
+                  <Label className="text-[12px]  mt-[3px] ml-1">Küçük</Label>
                 </FormGroup>
                 <FormGroup check>
                   <Input
-                    name="radio1"
+                    name="radio"
                     type="radio"
                     value="Orta"
                     checked={boyutSec === "Orta"}
                     onChange={handleSizeChange}
+                    className="appearance-none w-4 h-4 border border-gray-300 rounded-full checked:bg-customYellow checked:border-transparent focus:outline-none"
+                    data-cy="radio2-input"
                   />
-                  <Label className="text-[12px]">Orta</Label>
+                  <Label className="text-[12px]  mt-[3px] ml-1">Orta</Label>
                 </FormGroup>
                 <FormGroup check>
                   <Input
-                    name="radio1"
+                    name="radio"
                     type="radio"
                     value="Büyük"
                     checked={boyutSec === "Büyük"}
                     onChange={handleSizeChange}
+                    className="appearance-none w-4 h-4 border border-gray-300 rounded-full checked:bg-customYellow checked:border-transparent focus:outline-none "
+                    data-cy="radio1-input"
                   />
-                  <Label className="text-[12px]">Büyük</Label>
+                  <Label className="text-[12px] mt-[3px] ml-1">Büyük</Label>
                 </FormGroup>
               </FormGroup>
             </div>
 
             <div className="w-1/2 mb-10">
               <FormGroup className="mb-[20px]">
-                <Label className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700">
+                <Label className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700 ">
                   Hamur Seç
                 </Label>
                 <Input
-                  className="text-xs text-customGray  bg-customBej"
+                  className="text-xs text-customGray  bg-customBej "
                   id="exampleSelect"
                   name="hamurKalinligi"
                   type="select"
                   value={hamurKalinligi}
                   onChange={handleHamurChange}
                 >
-                  <option className="text-[11px] text-customGray">
+                  <option className="text-[11px] text-customGray ">
                     -Hamur Kalınlığı Seç-
                   </option>
                   <option className="text-[12px]">İnce Hamur</option>
@@ -190,7 +191,7 @@ const SiparisOlustur = ({ setSiparis }) => {
             <span className="mb-7 mt-4 ml-4 font-roboto text-customGray text-[13px]">
               En fazla 10 malzeme seçebilirsiniz. 5₺
             </span>
-            <FormGroup className="mb-7 mt-4 ml-4 text-xs grid grid-cols-3">
+            <FormGroup className="mb-7 mt-4 ml-4  text-xs  grid grid-cols-3 ">
               {[
                 "Pepperoni",
                 "Tavuk Izgara",
@@ -211,20 +212,22 @@ const SiparisOlustur = ({ setSiparis }) => {
                     <Input
                       type="checkbox"
                       name="malzeme"
-                      className="custom-checkbox"
+                      className="w-4 h-4 checked:border-transparent  checked:bg-customYellow"
                       value={ek}
                       checked={ekMalzeme.includes(ek)}
                       onChange={handleMalzemelerChange}
+                      data-cy="malzeme-input"
                     />
-                    <Label htmlFor={ek}>{ek}</Label>
-                    <span className="checkmark"></span>
+                    <Label className="p-1 mb-[3px]" htmlFor={ek}>
+                      {ek}
+                    </Label>
                   </Label>
                 </FormGroup>
               ))}
             </FormGroup>
             {ekMalzeme.length > 10 && (
               <p className=" mt-4 ml-4 font-roboto text-customGray text-[13px]">
-                En fazla 10 malzeme seçebilirsiniz.
+                En fazla 10 malzeme seçebilirsiniz!
               </p>
             )}
 
@@ -253,10 +256,11 @@ const SiparisOlustur = ({ setSiparis }) => {
                 className="mb-2 mt-4 ml-4 text-[12px] bg-customBej font-roboto"
                 id="ad"
                 name="ad"
-                placeholder="Adınızı giriniz.."
+                placeholder="Minimum 3 karakter olacak şekilde isminizi giriniz.."
                 type="text"
                 value={name}
                 onChange={handleNameChange}
+                data-cy="isim-input"
               />
             </FormGroup>
           </CardBody>
@@ -296,6 +300,7 @@ const SiparisOlustur = ({ setSiparis }) => {
                 type="button"
                 disabled={!isValid}
                 onClick={handleSubmit}
+                data-cy="submit-button"
               >
                 SİPARİŞ VER
               </button>
