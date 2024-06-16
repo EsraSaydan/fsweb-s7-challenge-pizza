@@ -11,9 +11,9 @@ import Food from "./Food";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="mt-[-1px]">
       <div
-        className=" flex flex-col items-center justify-center w-full rounded-lg min-h-screen bg-cover object-cover max-h-[500px] bg-center "
+        className=" flex flex-col items-center justify-center w-full border-none min-h-screen bg-cover object-cover max-h-[500px] bg-center "
         style={{ backgroundImage: `url(${Banner})` }}
       >
         <div className="flex flex-col justify-start items-center h-screen mt-8 ">

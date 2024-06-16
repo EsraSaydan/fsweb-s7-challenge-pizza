@@ -1,6 +1,6 @@
 import food1 from "/Assets/mile2-aseets/pictures/food-1.png";
 import food2 from "/Assets/mile2-aseets/pictures/food-2.png";
-import food3 from "/Assets/mile2-aseets/pictures/food-3.png";
+
 import ramen1 from "/Assets/ramen/ramen1.jpg";
 import ramen2 from "/Assets/ramen/ramen2.jpg";
 
@@ -10,8 +10,8 @@ export const data = [
     name: "Shoyu",
     category: "ramen",
     image: ramen1,
-    like: "4.9",
-    comment: "(200)",
+    like: "4.2",
+    comment: "(170)",
     price: "60₺",
   },
   {
@@ -19,17 +19,18 @@ export const data = [
     name: "Miso",
     category: "ramen",
     image: ramen2,
-    like: "4.9",
-    comment: "(200)",
+    like: "4.5",
+    comment: "(210)",
     price: "60₺",
   },
   {
     id: 3,
     name: "Tonkotsu",
     category: "ramen",
-    image: ramen1,
-    like: "4.9",
-    comment: "(200)",
+    image:
+      "https://cdn.pixabay.com/photo/2021/11/16/01/18/dish-6799805_1280.jpg",
+    like: "4.8",
+    comment: "(310)",
     price: "60₺",
   },
   {
@@ -47,7 +48,7 @@ export const data = [
     category: "pizza",
     image: food2,
     like: "4.9",
-    comment: "(200)",
+    comment: "(928)",
     price: "85₺",
   },
   {
@@ -56,7 +57,7 @@ export const data = [
     category: "pizza",
     image: food3,
     like: "4.9",
-    comment: "(200)",
+    comment: "(462)",
     price: "75₺",
   },
   {
@@ -65,8 +66,8 @@ export const data = [
     category: "burger",
     image:
       "https://cdn.pixabay.com/photo/2022/05/25/21/28/burger-7221436_1280.jpg",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.6",
+    comment: "(180)",
     price: "100₺",
   },
   {
@@ -75,8 +76,8 @@ export const data = [
     category: "burger",
     image:
       "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGJ1cmdlcnN8ZW58MHx8MHx8&auto=format&fit=crop&w=1400&q=60",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.7",
+    comment: "(400)",
     price: "120₺",
   },
   {
@@ -85,8 +86,8 @@ export const data = [
     category: "burger",
     image:
       "https://cdn.pixabay.com/photo/2022/07/15/18/12/mushroom-burger-7323675_1280.jpg",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.5",
+    comment: "(210)",
     price: "125₺",
   },
   {
@@ -95,8 +96,8 @@ export const data = [
     category: "French fries",
     image:
       "https://cdn.pixabay.com/photo/2014/01/16/01/48/chicken-nuggets-246180_1280.jpg",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.4",
+    comment: "(180)",
     price: "90₺",
   },
   {
@@ -106,7 +107,7 @@ export const data = [
     image:
       "https://cdn.pixabay.com/photo/2016/11/21/15/52/french-fries-1846083_1280.jpg",
     like: "4.9",
-    comment: "(200)",
+    comment: "(400)",
     price: "95₺",
   },
   {
@@ -115,8 +116,8 @@ export const data = [
     category: "French fries",
     image:
       "https://cdn.pixabay.com/photo/2020/03/28/14/51/french-fries-4977353_1280.jpg",
-    like: "4.9",
-    comment: "(200)",
+    like: "5.1",
+    comment: "(500)",
     price: "85₺",
   },
   {
@@ -125,8 +126,8 @@ export const data = [
     category: "Fast food",
     image:
       "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.8",
+    comment: "(310)",
     price: "110₺",
   },
   {
@@ -135,8 +136,8 @@ export const data = [
     category: "Fast food",
     image:
       "https://images.unsplash.com/photo-1594221708779-94832f4320d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hpY2tlbiUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.6",
+    comment: "(307)",
     price: "120₺",
   },
   {
@@ -145,8 +146,8 @@ export const data = [
     category: "Fast food",
     image:
       "https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGNoaWNrZW4lMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.1",
+    comment: "(175)",
     price: "100₺",
   },
   {
@@ -155,8 +156,8 @@ export const data = [
     category: "Soft drinks",
     image:
       "https://cdn.pixabay.com/photo/2020/03/07/05/17/coffee-4908762_1280.jpg",
-    like: "4.9",
-    comment: "(200)",
+    like: "5.2",
+    comment: "(507)",
     price: "85₺",
   },
   {
@@ -165,8 +166,8 @@ export const data = [
     category: "Soft drinks",
     image:
       "https://cdn.pixabay.com/photo/2017/02/25/09/30/lemonade-2097312_1280.jpg",
-    like: "4.9",
-    comment: "(200)",
+    like: "4.6",
+    comment: "(490)",
     price: "70₺",
   },
   {
@@ -176,7 +177,7 @@ export const data = [
     image:
       "https://cdn.pixabay.com/photo/2019/08/21/15/24/cocktail-4421316_1280.jpg",
     like: "4.9",
-    comment: "(200)",
+    comment: "(500)",
     price: "90₺",
   },
 ];
