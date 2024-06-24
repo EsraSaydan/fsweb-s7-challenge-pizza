@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   Card,
@@ -13,6 +15,7 @@ import {
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Inform from "./Inform";
+import { MdCheckCircle } from "react-icons/md";
 
 const SiparisOlustur = ({ setSiparis }) => {
   const [name, setName] = useState("");
@@ -63,6 +66,18 @@ const SiparisOlustur = ({ setSiparis }) => {
       .post("https://reqres.in/api/pizza", siparis)
       .then((response) => {
         setSiparis(siparis);
+        toast.success("🍕 Siparişiniz başarıyla alındı!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "bg-white text-customRed font-bold border-l-4",
+          icon: <MdCheckCircle size={27} color="red" />,
+        });
 
         history.push("/success");
         console.log("başarılı", response);
@@ -107,6 +122,20 @@ const SiparisOlustur = ({ setSiparis }) => {
   const handleNotlarChange = (e) => {
     setSiparisNotu(e.target.value);
   };
+
+  /*const notify = () => {
+    toast.success(" 🍕 Siparişiniz alınmıştır.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };*/
 
   return (
     <>
