@@ -15,7 +15,7 @@ export default function Success({ currentOrder }) {
   console.log(currentOrder);
 
   return (
-    <div className="h-[100vh] flex flex-col justify-start items-center  bg-customRed">
+    <div className="flex flex-col justify-start items-center  bg-customRed">
       <h3 className="font-satisfy text-2xl text-customYellow mt-[30px]">
         Lezzetin Yolda
       </h3>
