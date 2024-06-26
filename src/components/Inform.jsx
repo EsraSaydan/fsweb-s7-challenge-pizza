@@ -1,12 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink } from "react-router-dom";
 import { CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import banner from "/Assets/mile2-aseets/pictures/form-banner.png";
 
 export default function Inform() {
   return (
-    <CardBody className="bg-customBej ml-8 p-0">
-      <div className="mx-auto max-w-2xl border-none">
+    <CardBody className="bg-customBej p-0">
+      <div className="mx-auto  max-w-2xl border-none">
         <div className="flex flex-col items-center justify-center ">
           <img
             className="flex flex-col items-center justify-center text-center mt-0 w-[500px] "
@@ -14,7 +14,7 @@ export default function Inform() {
           />
         </div>
 
-        <div className="flex text-customGray font-roboto ml-4 mt-10 mb-10 space-x-1 text-s">
+        <div className="flex ml-8 text-customGray font-roboto  mt-10 mb-10 space-x-1 text-s">
           <NavLink exact to="/" activeStyle={{ color: "red" }}>
             Anasayfa
           </NavLink>
@@ -24,11 +24,11 @@ export default function Inform() {
           </NavLink>
         </div>
 
-        <CardTitle className="mb-7 mt-4 ml-4 text-lg font-bold text-gray-800">
+        <CardTitle className="mb-7 mt-4 ml-8 text-lg font-bold text-gray-800">
           Position Absolute Acı Pizza
         </CardTitle>
         <CardSubtitle className="text-lg font-bold">
-          <span className="text-xl ml-4 font-bold">85.50 ₺</span>
+          <span className="text-xl ml-8 font-bold">85.50 ₺</span>
           <span className="text-xs text-gray-400 float-right flex item ml-auto abdolute right-0 w-8 h-8">
             (200)
           </span>
@@ -36,7 +36,7 @@ export default function Inform() {
             4.9
           </span>
         </CardSubtitle>
-        <CardSubtitle className="mb-7 mt-4 ml-4 text-s font-roboto text-customGray">
+        <CardSubtitle className="mb-7 mt-4 ml-8 text-s font-roboto text-customGray">
           Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı
           pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
           diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun

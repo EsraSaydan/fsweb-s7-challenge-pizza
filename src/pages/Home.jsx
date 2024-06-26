@@ -1,13 +1,12 @@
 import React from "react";
 import Banner from "/Assets/mile1-assets/home-banner.png";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import kart1 from "/Assets/mile2-aseets/cta/kart-1.png";
 import kart2 from "/Assets/mile2-aseets/cta/kart-2.png";
 import kart3 from "/Assets/mile2-aseets/cta/kart-3.png";
-
-import Food from "./Food";
+import Food from "../components/Food";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
@@ -49,7 +48,7 @@ export default function Home() {
                 </h2>
                 <p className="mt-2 text-1xl">Position:Absolute Acı Burger.</p>
                 <Link to="/order">
-                  <button className="shadow-lg hover:scale-105 duration-300 space-x4 lg:space-x-8 bg-white text-customRed font-semibold py-2 lg:py-3 px-4 lg:px-16 rounded-full border-1 mt-4">
+                  <button className="shadow-lg hover:scale-105 duration-300 space-x-4 lg:space-x-8 bg-white text-customRed font-semibold py-2 lg:py-3 px-4 lg:px-16 rounded-full border-1 mt-4">
                     SİPARİŞ VER
                   </button>
                 </Link>
@@ -58,12 +57,12 @@ export default function Home() {
             <div className="flex flex-col gap-3">
               <div className="relative rounded-lg overflow-hidden hover:scale-105 duration-300">
                 <img src={kart2} alt="Kart2" className="rounded-lg" />
-                <div className="absolute top-0 left-0 text-white py-4 px-4 font-barlow ">
+                <div className="absolute top-0 left-0 text-white py-2 md:py-4 px-4  font-barlow ">
                   <h2 className="font-semibold text-2xl mb-4">
                     Hackatlon <br /> Burger Menü
                   </h2>
                   <Link to="/order">
-                    <button className="shadow-lg hover:scale-105 duration-300 space-x4 lg:space-x-5 bg-white text-customRed font-semibold py-2 lg:py-3 px-3 lg:px-16 rounded-full border-1 mt-1">
+                    <button className="shadow-lg hover:scale-105 duration-300 space-x4 lg:space-x-4 bg-white text-customRed font-semibold py-2 lg:py-3 px-3 lg:px-16 rounded-full border-1 mt-1 ">
                       SİPARİŞ VER
                     </button>
                   </Link>
@@ -71,7 +70,7 @@ export default function Home() {
               </div>
               <div className="relative rounded-lg overflow-hidden hover:scale-105 duration-300">
                 <img src={kart3} alt="Kart3" className="rounded-lg" />
-                <div className="absolute top-0 left-0 text-white py-4 px-4 font-barlow ">
+                <div className="absolute top-0 left-0 text-white py-2 md:py-4 px-4 font-barlow ">
                   <h2 className=" text-black font-semibold text-2xl mb-4">
                     <span className="text-customRed font-bold">Çoooook</span>{" "}
                     hızlı <br /> npm gibi kurye

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import {
   Card,
   CardBody,
@@ -14,7 +12,7 @@ import {
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import Inform from "./Inform";
+import Inform from "../components/Inform";
 import { MdCheckCircle } from "react-icons/md";
 
 const SiparisOlustur = ({ setSiparis }) => {
@@ -66,7 +64,7 @@ const SiparisOlustur = ({ setSiparis }) => {
       .post("https://reqres.in/api/pizza", siparis)
       .then((response) => {
         setSiparis(siparis);
-        toast.success("🍕 Siparişiniz başarıyla alındı!", {
+        toast.success("🍕 Siparişiniz başarıyla alındı! Afiyet olsun:)", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -84,7 +82,6 @@ const SiparisOlustur = ({ setSiparis }) => {
       })
       .catch((error) => {
         console.error(error);
-        history.push("/order");
       });
   };
 
@@ -127,15 +124,19 @@ const SiparisOlustur = ({ setSiparis }) => {
     <>
       <Inform />
       <Card className="mx-auto max-w-2xl border-none ">
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <CardBody className="flex justify-center items-center space-x-4 ">
             <div className="w-1/2">
               <FormGroup className="text-xs mb-7 mt-0 ml-4">
-                <Label className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700">
+                <Label
+                  htmlFor="boyut"
+                  className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700"
+                >
                   Boyut Seç
                 </Label>
                 <FormGroup check>
                   <Input
+                    id="boyut"
                     name="radio"
                     type="radio"
                     value="Küçük"
@@ -175,12 +176,15 @@ const SiparisOlustur = ({ setSiparis }) => {
 
             <div className="w-1/2 mb-10">
               <FormGroup className="mb-[20px]">
-                <Label className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700 ">
+                <Label
+                  htmlFor="hamur"
+                  className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700 "
+                >
                   Hamur Seç
                 </Label>
                 <Input
                   className="text-xs text-customGray  bg-customBej "
-                  id="exampleSelect"
+                  id="hamur"
                   name="hamurKalinligi"
                   type="select"
                   value={hamurKalinligi}
@@ -199,7 +203,10 @@ const SiparisOlustur = ({ setSiparis }) => {
 
           <CardBody>
             <FormGroup className="text-xs mb-7 mt-4 ml-4">
-              <Label className="text-1 mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700">
+              <Label
+                htmlFor="ekstra"
+                className="text-1 mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700"
+              >
                 Ekstra Malzemeler
               </Label>
             </FormGroup>
@@ -225,6 +232,7 @@ const SiparisOlustur = ({ setSiparis }) => {
                 <FormGroup key={index} check>
                   <Label check>
                     <Input
+                      id="ekstra"
                       type="checkbox"
                       name="malzeme"
                       className="w-4 h-4 checked:border-transparent  checked:bg-customYellow"
@@ -248,12 +256,14 @@ const SiparisOlustur = ({ setSiparis }) => {
 
             <FormGroup>
               <Label
+                htmlFor="siparis"
                 className="text-1 mt-5 ml-4 block text-sm font-bold text-slate-700"
                 for="text"
               >
                 Sipariş Notu
               </Label>
               <Input
+                id="siparis"
                 className="mb-2 mt-4 ml-4 text-[12px] bg-customBej font-roboto"
                 placeholder="Siparişine eklemek istediğin bir not var mı?"
                 value={siparisNotu}
@@ -288,10 +298,7 @@ const SiparisOlustur = ({ setSiparis }) => {
             >
               +
             </Button>
-            <Button
-              className="hover:bg-customYellow bg-customBej font-roboto border-none rounded-none text-customGray w-18 h-10"
-              onClick={() => setUrunSayisi(0)}
-            >
+            <Button className="hover:bg-customYellow bg-customBej font-roboto border-none rounded-none text-customGray w-18 h-10">
               {urunSayisi}
             </Button>
             <Button
@@ -309,17 +316,14 @@ const SiparisOlustur = ({ setSiparis }) => {
           />
 
           <div className="flex justify-end ">
-            <Link to="/success">
-              <button
-                className="hover:bg-yellow-600 bg-customYellow ml-auto border-none py-2 text-customBoldGray pt-2 w-60 font-roboto  "
-                type="button"
-                disabled={!isValid}
-                onClick={handleSubmit}
-                data-cy="submit-button"
-              >
-                SİPARİŞ VER
-              </button>
-            </Link>
+            <button
+              className="hover:bg-yellow-600 bg-customYellow ml-auto border-none py-2 text-customBoldGray pt-2 w-60 font-roboto  "
+              type="submit"
+              disabled={!isValid}
+              data-cy="submit-button"
+            >
+              SİPARİŞ VER
+            </button>
           </div>
         </Form>
       </Card>

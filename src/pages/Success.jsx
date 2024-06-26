@@ -6,13 +6,13 @@ export default function Success({ currentOrder }) {
     return null;
   }
 
-  console.log(currentOrder);
+  //console.log("currentOrder:", currentOrder);
 
   const formatEkMalzemeler = (ekMalzeme) => {
     return ekMalzeme.join(",\n");
   };
 
-  console.log(currentOrder);
+  //console.log("currentOrder:", currentOrder);
 
   return (
     <div className="flex flex-col justify-start items-center  bg-customRed">
@@ -29,7 +29,7 @@ export default function Success({ currentOrder }) {
 
       <hr className="text-white font-bold" />
 
-      <div className="text-customBej px-25 mr-8 bg-customRed mb-[1rem]">
+      <div className="text-customBej px-25 md:mr-8 bg-customRed mb-[1rem]">
         <br />
         <p className="mt-5 ">Boyut: {currentOrder.boyutSec}</p>
         <br />
@@ -38,7 +38,7 @@ export default function Success({ currentOrder }) {
         <p>Ek Malzemeler: {formatEkMalzemeler(currentOrder.ekMalzeme)}</p>
       </div>
 
-      <div className="gap-0 border-1 p-10 rounded-2  text-customBej mt-[3rem] px-20  bg-customRed ">
+      <div className="gap-0 border-1 p-10 rounded-2 mb-[3rem] text-customBej mt-[3rem] px-20 ">
         <h4 className="mb-4 text-xl">Sipariş Toplamı</h4>
         <p className="mb-2">Seçimler: {currentOrder.totalMalzemePrice}₺</p>
         <p className="toplam-success">Toplam: {currentOrder.toplamUcret}₺</p>
