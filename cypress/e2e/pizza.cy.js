@@ -4,6 +4,33 @@ describe("Order Page", () => {
     cy.visit("/");
   });
   describe("Error Message", () => {
+    it("Errors", () => {
+      it("shows error messages when form is submitted without any selections", () => {
+        cy.get("[data-cy=submit-button]").click();
+
+        cy.get("[data-cy=boyut-error-message]")
+          .should("be.visible")
+          .and("contain", "Lütfen pizza boyutunu seçiniz.");
+
+        cy.get("[data-cy=hamur-error-message]")
+          .should("be.visible")
+          .and("contain", "Lütfen hamur kalınlığı seçiniz.");
+
+        cy.get("[data-cy=ad-error-message]")
+          .should("be.visible")
+          .and("contain", "En az 3 karakter giriniz.");
+
+        cy.get("[data-cy=siparisNot-error-message]")
+          .should("be.visible")
+          .and("contain", "En az 3 karakter giriniz.");
+
+        cy.get("[data-cy=malzeme-error-message]")
+          .should("be.visible")
+          .and("contain", "En az 4 en fazla 10 seçim yapmalısınız.");
+      });
+    });
+  });
+  describe("Form Context", () => {
     it("Name input", () => {
       //Arrange
       //Act
