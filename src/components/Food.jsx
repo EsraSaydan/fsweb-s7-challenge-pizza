@@ -92,17 +92,19 @@ export default function () {
         </button>
       </div>
 
-      <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 md:gap-7 mx-auto md:p-[5px] px-[20px] lg:px-[140px] mt-5 border-none ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-7 mx-auto md:p-[5px] px-[20px] lg:px-[140px] mt-5 border-none ">
         {foods.map((item, index) => (
           <Card
             key={index}
-            className="mb-5 border-none sm:w-[70px] sm:h-[100px] md:w-[320px] md:h-[400px] shadow-lg hover:scale-105 duration-300 "
+            className="mb-5 border-none  md:w-[320px]  sm:h-[1s00px] md:h-[400px] shadow-lg hover:scale-105 duration-300 "
           >
-            <img
-              className="h-[150px] md:h-[300px] w-[200px] md:w-[300px] px-[30px] py-[30px] rounded-full py-[30px"
-              src={item.image}
-              alt={item.name}
-            />
+            <div className="ml-[6rem] md:ml-[2rem]">
+              <img
+                className="h-[150px] md:h-[300px] w-[200px] md:w-[300px] px-[30px] py-[30px] rounded-full py-[30px"
+                src={item.image}
+                alt={item.name}
+              />
+            </div>
             <CardBody>
               <CardTitle
                 className="font-semibold font-roboto text-s md:text-l"

@@ -9,11 +9,20 @@ import {
   Label,
   Button,
   Form,
+  FormFeedback,
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Inform from "../components/Inform";
 import { MdCheckCircle } from "react-icons/md";
+
+export const errorMessages = {
+  ad: "En az 3 karakter giriniz!",
+  siparisNot: "En az 3 karakter giriniz!",
+  malzeme: "En az 4 en fazla 10 seçim yapmalısınız.",
+  boyut: "Lütfen pizza boyutunu seçiniz!",
+  hamurKalinligi: "Lütfen hamur kalınlığı seçiniz!",
+};
 
 const SiparisOlustur = ({ setSiparis }) => {
   const [name, setName] = useState("");
@@ -24,6 +33,13 @@ const SiparisOlustur = ({ setSiparis }) => {
   const [isValid, setIsValid] = useState(false);
   const [urunSayisi, setUrunSayisi] = useState(0);
   const [toplamUcret, setToplamUcret] = useState(0);
+  const [errors, setErrors] = useState({
+    ad: false,
+    siparisNot: false,
+    malzeme: false,
+    boyut: false,
+    hamurKalinligi: false,
+  });
 
   const malzemePrice = 5;
   const totalMalzemePrice = ekMalzeme.length * malzemePrice;
@@ -38,17 +54,29 @@ const SiparisOlustur = ({ setSiparis }) => {
       urunSayisi > 0 &&
       boyutSec &&
       hamurKalinligi &&
+      siparisNotu.length >= 3 &&
       name.length >= 3 &&
       ekMalzeme.length >= 4 &&
       ekMalzeme.length <= 10;
     setIsValid(isFormValid);
-  }, [boyutSec, hamurKalinligi, name, ekMalzeme, urunSayisi]);
+  }, [boyutSec, hamurKalinligi, name, ekMalzeme, urunSayisi, siparisNotu]);
 
   const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!isValid) return;
+    if (!isValid) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ad: name.trim().length < 3,
+        siparisNot: siparisNotu.trim().length < 3,
+        malzeme: ekMalzeme.length < 4 || ekMalzeme.length > 10,
+        boyut: boyutSec === "",
+        hamurKalinligi:
+          hamurKalinligi === "" || hamurKalinligi === "-Hamur Kalınlığı Seç-",
+      }));
+      return;
+    }
 
     const siparis = {
       name: name,
@@ -82,6 +110,17 @@ const SiparisOlustur = ({ setSiparis }) => {
       })
       .catch((error) => {
         console.error(error);
+        toast.error("🚨 Siparişiniz gönderilemedi. Lütfen tekrar deneyin.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          className: "bg-white text-customRed font-bold border-l-4",
+        });
       });
   };
 
@@ -96,38 +135,79 @@ const SiparisOlustur = ({ setSiparis }) => {
   };
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    const value = e.target.value;
+    setName(value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ad: value.trim().length >= 3 ? false : true,
+    }));
   };
-
   const handleSizeChange = (e) => {
-    setBoyutSec(e.target.value);
+    const value = e.target.value;
+    setBoyutSec(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      boyut: value ? false : true,
+    }));
   };
 
   const handleHamurChange = (e) => {
-    setHamurKalinligi(e.target.value);
+    const value = e.target.value;
+    setHamurKalinligi(value);
+
+    if (value !== "-Hamur Kalınlığı Seç-") {
+      setErrors((prevErrors) => ({ ...prevErrors, hamurKalinligi: false }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, hamurKalinligi: true }));
+    }
   };
 
   const handleMalzemelerChange = (e) => {
-    const malzeme = e.target.value;
-    if (ekMalzeme.includes(malzeme)) {
-      setEkMalzeme(ekMalzeme.filter((item) => item !== malzeme));
+    const { value, checked } = e.target;
+
+    if (checked) {
+      if (ekMalzeme.length < 10) {
+        setEkMalzeme((prevMalzeme) => [...prevMalzeme, value]);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          malzeme: ekMalzeme.length >= 3 ? false : true,
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, malzeme: true }));
+      }
     } else {
-      setEkMalzeme([...ekMalzeme, malzeme]);
+      setEkMalzeme((prevMalzeme) =>
+        prevMalzeme.filter((item) => item !== value)
+      );
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        malzeme: ekMalzeme.length >= 3 ? false : true,
+      }));
     }
   };
 
   const handleNotlarChange = (e) => {
-    setSiparisNotu(e.target.value);
+    const value = e.target.value;
+    setSiparisNotu(value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      siparisNot: value.trim().length >= 3 ? false : true,
+    }));
   };
 
   return (
     <>
       <Inform />
-      <Card className="mx-auto max-w-2xl border-none ">
+      <Card className="mx-auto max-w-2xl border-none">
         <Form onSubmit={handleSubmit}>
-          <CardBody className="flex justify-center items-center space-x-4 ">
+          <CardBody className="flex justify-center items-center space-x-4">
             <div className="w-1/2">
-              <FormGroup className="text-xs mb-7 mt-0 ml-4">
+              <FormGroup
+                className={`text-xs mb-7 mt-0 ml-4 ${
+                  errors.boyut ? "is-invalid" : ""
+                }`}
+              >
                 <Label
                   htmlFor="boyut"
                   className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700"
@@ -137,39 +217,49 @@ const SiparisOlustur = ({ setSiparis }) => {
                 <FormGroup check>
                   <Input
                     id="boyut"
-                    name="radio"
+                    name="boyut"
                     type="radio"
                     value="Küçük"
                     checked={boyutSec === "Küçük"}
                     onChange={handleSizeChange}
+                    invalid={boyutSec === ""}
                     className="appearance-none w-4 h-4 border border-gray-300 rounded-full checked:bg-customYellow checked:border-transparent focus:outline-none"
                     data-cy="radio3-input"
                   />
-                  <Label className="text-[12px]  mt-[3px] ml-1">Küçük</Label>
+                  <Label className="text-[12px] mt-[3px] ml-1">Küçük</Label>
                 </FormGroup>
                 <FormGroup check>
                   <Input
-                    name="radio"
+                    id="boyut"
+                    name="boyut"
                     type="radio"
                     value="Orta"
                     checked={boyutSec === "Orta"}
+                    invalid={boyutSec === ""}
                     onChange={handleSizeChange}
                     className="appearance-none w-4 h-4 border border-gray-300 rounded-full checked:bg-customYellow checked:border-transparent focus:outline-none"
                     data-cy="radio2-input"
                   />
-                  <Label className="text-[12px]  mt-[3px] ml-1">Orta</Label>
+                  <Label className="text-[12px] mt-[3px] ml-1">Orta</Label>
                 </FormGroup>
                 <FormGroup check>
                   <Input
-                    name="radio"
+                    id="boyut"
+                    name="boyut"
                     type="radio"
                     value="Büyük"
+                    invalid={boyutSec === ""}
                     checked={boyutSec === "Büyük"}
                     onChange={handleSizeChange}
                     className="appearance-none w-4 h-4 border border-gray-300 rounded-full checked:bg-customYellow checked:border-transparent focus:outline-none "
                     data-cy="radio1-input"
                   />
                   <Label className="text-[12px] mt-[3px] ml-1">Büyük</Label>
+                  {errors.boyut && (
+                    <FormFeedback className="text-[12px] mr-[2rem] font-semibold mt-4">
+                      {errorMessages.boyut}
+                    </FormFeedback>
+                  )}
                 </FormGroup>
               </FormGroup>
             </div>
@@ -177,26 +267,33 @@ const SiparisOlustur = ({ setSiparis }) => {
             <div className="w-1/2 mb-10">
               <FormGroup className="mb-[20px]">
                 <Label
-                  htmlFor="hamur"
+                  htmlFor="hamurKalinligi"
                   className="text-s mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700 "
                 >
                   Hamur Seç
                 </Label>
                 <Input
-                  className="text-xs text-customGray  bg-customBej "
-                  id="hamur"
+                  className="text-xs text-customGray bg-customBej"
+                  id="hamurKalinligi"
                   name="hamurKalinligi"
                   type="select"
                   value={hamurKalinligi}
+                  invalid={
+                    hamurKalinligi === "" ||
+                    hamurKalinligi === "-Hamur Kalınlığı Seç-"
+                  }
                   onChange={handleHamurChange}
                 >
-                  <option className="text-[11px] text-customGray ">
+                  <option className="text-[11px] text-customGray">
                     -Hamur Kalınlığı Seç-
                   </option>
                   <option className="text-[12px]">İnce Hamur</option>
                   <option className="text-[12px]">Klasik Hamur</option>
                   <option className="text-[12px]">Kalın Hamur</option>
                 </Input>
+                <FormFeedback className="text-[12px] mr-[2rem] font-semibold mt-4">
+                  {errors.hamurKalinligi && errorMessages.hamurKalinligi}
+                </FormFeedback>
               </FormGroup>
             </div>
           </CardBody>
@@ -204,7 +301,7 @@ const SiparisOlustur = ({ setSiparis }) => {
           <CardBody>
             <FormGroup className="text-xs mb-7 mt-4 ml-4">
               <Label
-                htmlFor="ekstra"
+                htmlFor="malzeme"
                 className="text-1 mb-3 after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-bold text-slate-700"
               >
                 Ekstra Malzemeler
@@ -213,7 +310,7 @@ const SiparisOlustur = ({ setSiparis }) => {
             <span className="mb-7 mt-4 ml-4 font-roboto text-customGray text-[13px]">
               En fazla 10 malzeme seçebilirsiniz. 5₺
             </span>
-            <FormGroup className="mb-7 mt-4 ml-4  text-xs  grid grid-cols-3 ">
+            <FormGroup className="mb-7 mt-4 ml-4 text-xs grid grid-cols-3">
               {[
                 "Pepperoni",
                 "Tavuk Izgara",
@@ -232,43 +329,50 @@ const SiparisOlustur = ({ setSiparis }) => {
                 <FormGroup key={index} check>
                   <Label check>
                     <Input
-                      id="ekstra"
+                      id={ek}
                       type="checkbox"
                       name="malzeme"
-                      className="w-4 h-4 checked:border-transparent  checked:bg-customYellow"
+                      className="w-4 h-4 checked:border-transparent checked:bg-customYellow"
                       value={ek}
                       checked={ekMalzeme.includes(ek)}
                       onChange={handleMalzemelerChange}
+                      invalid={
+                        errors.malzeme &&
+                        (ekMalzeme.length < 4 || ekMalzeme.length > 10)
+                      }
                       data-cy="malzeme-input"
                     />
-                    <Label className="p-1 mb-[3px]" htmlFor={ek}>
-                      {ek}
-                    </Label>
+                    {ek}
                   </Label>
+
+                  <FormFeedback className="text-[12px] mr-[2rem] font-semibold mt-4">
+                    {errors.malzeme && errorMessages.malzeme}
+                  </FormFeedback>
                 </FormGroup>
               ))}
             </FormGroup>
-            {ekMalzeme.length > 10 && (
-              <p className=" mt-4 ml-4 font-roboto text-customGray text-[13px]">
-                En fazla 10 malzeme seçebilirsiniz!
-              </p>
-            )}
 
             <FormGroup>
               <Label
-                htmlFor="siparis"
+                htmlFor="siparisNot"
                 className="text-1 mt-5 ml-4 block text-sm font-bold text-slate-700"
                 for="text"
               >
                 Sipariş Notu
               </Label>
               <Input
-                id="siparis"
+                id="siparisNot"
+                name="siparisNot"
+                type="text"
                 className="mb-2 mt-4 ml-4 text-[12px] bg-customBej font-roboto"
                 placeholder="Siparişine eklemek istediğin bir not var mı?"
                 value={siparisNotu}
+                invalid={errors.siparisNot}
                 onChange={handleNotlarChange}
               />
+              <FormFeedback className="text-[12px] ml-[1rem] font-semibold mt-4">
+                {errors.siparisNot && errorMessages.siparisNot}
+              </FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label
@@ -284,9 +388,16 @@ const SiparisOlustur = ({ setSiparis }) => {
                 placeholder="Minimum 3 karakter olacak şekilde isminizi giriniz.."
                 type="text"
                 value={name}
+                invalid={errors.ad}
                 onChange={handleNameChange}
                 data-cy="isim-input"
               />
+              <FormFeedback
+                className="text-[12px] ml-[1rem] font-semibold mt-4"
+                data-cy="error-message"
+              >
+                {errors.ad && errorMessages.ad}
+              </FormFeedback>
             </FormGroup>
           </CardBody>
           <hr className="my-4 border-gray-500" />
@@ -315,9 +426,9 @@ const SiparisOlustur = ({ setSiparis }) => {
             ekMalzeme={ekMalzeme}
           />
 
-          <div className="flex justify-end ">
+          <div className="flex justify-end">
             <button
-              className="hover:bg-yellow-600 bg-customYellow ml-auto border-none py-2 text-customBoldGray pt-2 w-60 font-roboto  "
+              className="hover:bg-yellow-600 bg-customYellow ml-auto border-none py-2 text-customBoldGray pt-2 w-60 font-roboto"
               type="submit"
               disabled={!isValid}
               data-cy="submit-button"
@@ -330,6 +441,7 @@ const SiparisOlustur = ({ setSiparis }) => {
     </>
   );
 };
+
 export default SiparisOlustur;
 
 export const SiparisToplami = ({ totalMalzemePrice, urunSayisi }) => {
@@ -337,7 +449,7 @@ export const SiparisToplami = ({ totalMalzemePrice, urunSayisi }) => {
 
   return (
     <div className="border ml-auto w-60 p-4 mt-2 shadow-lg bg-customBej">
-      <h2 className="text-1 mt-3 ml-4 mb-4 block text-sm font-bold text-slate-700 ">
+      <h2 className="text-1 mt-3 ml-4 mb-4 block text-sm font-bold text-slate-700">
         Sipariş Toplamı
       </h2>
       <ul>
