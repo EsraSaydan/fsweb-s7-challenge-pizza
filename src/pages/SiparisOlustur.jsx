@@ -17,11 +17,11 @@ import Inform from "../components/Inform";
 import { MdCheckCircle } from "react-icons/md";
 
 export const errorMessages = {
-  ad: "En az 3 karakter giriniz!",
-  siparisNot: "En az 3 karakter giriniz!",
+  ad: "En az 3 karakter giriniz.",
+  siparisNot: "En az 3 karakter giriniz.",
   malzeme: "En az 4 en fazla 10 seçim yapmalısınız.",
-  boyut: "Lütfen pizza boyutunu seçiniz!",
-  hamurKalinligi: "Lütfen hamur kalınlığı seçiniz!",
+  boyut: "Lütfen pizza boyutunu seçiniz.",
+  hamurKalinligi: "Lütfen hamur kalınlığı seçiniz.",
 };
 
 const SiparisOlustur = ({ setSiparis }) => {
@@ -255,11 +255,12 @@ const SiparisOlustur = ({ setSiparis }) => {
                     data-cy="radio1-input"
                   />
                   <Label className="text-[12px] mt-[3px] ml-1">Büyük</Label>
-                  {errors.boyut && (
-                    <FormFeedback className="text-[12px] mr-[2rem] font-semibold mt-4">
-                      {errorMessages.boyut}
-                    </FormFeedback>
-                  )}
+                  <FormFeedback
+                    className="text-[12px] font-semibold mt-3"
+                    data-cy="boyut-error-message"
+                  >
+                    {errors.boyut && errorMessages.boyut}
+                  </FormFeedback>
                 </FormGroup>
               </FormGroup>
             </div>
@@ -291,7 +292,10 @@ const SiparisOlustur = ({ setSiparis }) => {
                   <option className="text-[12px]">Klasik Hamur</option>
                   <option className="text-[12px]">Kalın Hamur</option>
                 </Input>
-                <FormFeedback className="text-[12px] mr-[2rem] font-semibold mt-4">
+                <FormFeedback
+                  className="text-[12px] font-semibold mt-3"
+                  data-cy="hamur-error-message"
+                >
                   {errors.hamurKalinligi && errorMessages.hamurKalinligi}
                 </FormFeedback>
               </FormGroup>
@@ -345,9 +349,15 @@ const SiparisOlustur = ({ setSiparis }) => {
                     {ek}
                   </Label>
 
-                  <FormFeedback className="text-[12px] mr-[2rem] font-semibold mt-4">
-                    {errors.malzeme && errorMessages.malzeme}
-                  </FormFeedback>
+                  {ekMalzeme.length > 10 ||
+                    (ekMalzeme.length <= 4 && (
+                      <FormFeedback
+                        className="text-[12px] font-semibold mt-3"
+                        data-cy="malzeme-error-message"
+                      >
+                        {errorMessages.malzeme}
+                      </FormFeedback>
+                    ))}
                 </FormGroup>
               ))}
             </FormGroup>
@@ -370,7 +380,10 @@ const SiparisOlustur = ({ setSiparis }) => {
                 invalid={errors.siparisNot}
                 onChange={handleNotlarChange}
               />
-              <FormFeedback className="text-[12px] ml-[1rem] font-semibold mt-4">
+              <FormFeedback
+                className="text-[12px] font-semibold mt-3 ml-4"
+                data-cy="siparisNot-error-message"
+              >
                 {errors.siparisNot && errorMessages.siparisNot}
               </FormFeedback>
             </FormGroup>
@@ -393,8 +406,8 @@ const SiparisOlustur = ({ setSiparis }) => {
                 data-cy="isim-input"
               />
               <FormFeedback
-                className="text-[12px] ml-[1rem] font-semibold mt-4"
-                data-cy="error-message"
+                className="text-[12px] font-semibold mt-3 ml-4"
+                data-cy="ad-error-message"
               >
                 {errors.ad && errorMessages.ad}
               </FormFeedback>
